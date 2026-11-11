@@ -4,6 +4,25 @@ import { authClient } from './auth.js';
 import './styles.css';
 
 const WA_URL = 'https://wa.me/971585881180';
+const INSTAGRAM_URL = 'https://www.instagram.com/vol.tpop/';
+
+const DEMO_PRODUCTS = [
+  {
+    kind: 'zip', name: { ar: 'VoltPop Zip 10K', en: 'VoltPop Zip 10K' }, capacity: '10,000 mAh', output: { ar: 'حتى 30 واط', en: 'Up to 30W' },
+    feature: { ar: 'حجم يومي عملي مع كابل USB-C مدمج.', en: 'A handy everyday size with a built-in USB-C cable.' }, price: 69, source: 'Anker',
+    url: 'https://www.store.anker.com/products/a1688',
+  },
+  {
+    kind: 'snap', name: { ar: 'VoltPop Snap 10K', en: 'VoltPop Snap 10K' }, capacity: '10,000 mAh', output: { ar: '33 واط سلكي · 7.5 واط لاسلكي', en: '33W wired · 7.5W wireless' },
+    feature: { ar: 'فكرة نحيفة مغناطيسية، مع كابل USB-C مدمج.', en: 'A slim magnetic concept with a built-in USB-C cable.' }, price: 99, source: 'Xiaomi',
+    url: 'https://www.mi.com/ae-en/product/xiaomi-33w-magnetic-power-bank-10000-integrated-cable/',
+  },
+  {
+    kind: 'max', name: { ar: 'VoltPop Max 20K', en: 'VoltPop Max 20K' }, capacity: '20,000 mAh', output: { ar: 'شحن PD حتى 20 واط · 3 منافذ', en: 'Up to 20W PD · 3 ports' },
+    feature: { ar: 'سعة أكبر لمشاركة الشحن بين عدة أجهزة.', en: 'More capacity for sharing power across several devices.' }, price: 129, source: 'Belkin',
+    url: 'https://www.belkin.com/compatibility?pid=BPB014btBK',
+  },
+];
 
 const copy = {
   ar: {
@@ -12,13 +31,13 @@ const copy = {
     heroText: 'نحن آدم وصديقه، ونحوّل حبّنا للاختراع إلى فكرة مليئة بالطاقة. قريبًا ستجدون هنا ابتكاراتنا!',
     seeProducts: 'اكتشفوا المنتجات', ourStory: 'تعرّفوا إلينا', madeBy: 'من خيال آدم وصديقه',
     orbitOne: 'فكرة جديدة', orbitTwo: 'طاقة إيجابية', orbitThree: 'قريبًا جدًا',
-    productsTag: 'متجرنا الصغير', productsTitle: 'المنتجات قادمة!', productsText: 'نحن نعمل على أول ابتكاراتنا الآن. أضيفوا هذه الصفحة للمفضلة، وعودوا قريبًا لتشاهدوا ما صنعناه.',
+    productsTag: 'نماذج تجريبية', productsTitle: 'أول أفكار VoltPop!', productsText: 'ثلاثة نماذج مؤقتة مستوحاة من تصاميم موجودة، لتتخيّلوا شكل متجرنا قبل إطلاق ابتكاراتنا.', demoBadge: 'فكرة تجريبية', demoPrice: 'سعر تجريبي', currency: 'د.إ', demoSoon: 'قريبًا', demoReference: 'مرجع الفكرة والمواصفات', demoDisclaimer: 'هذه تصاميم توضيحية مؤقتة. الأسعار والمواصفات المعروضة للتجربة فقط، وهذه النماذج ليست منتجات VoltPop المتاحة للبيع.',
     emptyLabel: 'المكان جاهز لأول ابتكار', emptySub: 'نضيف المنتجات هنا عندما تصبح جاهزة', contactUs: 'راسلونا على واتساب',
     ideasTag: 'نستكشف التصاميم', ideasTitle: 'نماذج تشعل الخيال', ideasIntro: 'أمثلة حقيقية لأشكال مختلفة من البطاريات المتنقلة، جمعناها لتلهم أفكارنا.', ideaCableTag: 'كابل مدمج', ideaPlugTag: 'مقبس قابل للطي', ideaMagTag: 'تصميم نحيف مغناطيسي', ideaCableText: 'كابل USB-C مدمج في الجسم لسهولة الحمل.', ideaPlugText: 'موصل USB-C صغير قابل للطي لتقليل الحاجة إلى كابل منفصل.', ideaMagText: 'تصميم مسطح يثبت مغناطيسيًا على الأجهزة المتوافقة.', ideaSource: 'شاهدوا النموذج لدى Anker', ideasDisclaimer: 'هذه نماذج من شركة Anker للاستلهام فقط وليست للبيع من VoltPop. الرسومات توضيحية وليست صورًا أصلية للمنتجات.',
     storyTag: 'من نحن؟', storyTitle: <>كل اختراع كبير<br />يبدأ بسؤال صغير.</>, storyText: 'بدأت الحكاية بفضول آدم وحبّه لصنع الأشياء مع صديقه. VoltPop مساحة نشارك فيها رحلتنا وأفكارنا، خطوة بخطوة.',
     storyCardTitle: 'نصنعها بحماس', storyCardText: 'نتعلّم، نجرّب، ونشارككم كل جديد عندما يصبح جاهزًا.',
     contactTitle: 'عندكم سؤال أو فكرة؟', contactText: 'يسعدنا أن نسمع منكم. تواصلوا مع وليّ الأمر عبر واتساب.',
-    officialWhatsApp: 'واتساب الرسمي', footerLine: 'صُنع بحب وشرارة خيال ✦',
+    officialWhatsApp: 'واتساب الرسمي', instagramFollow: 'تابعوا مغامرتنا على إنستغرام', footerLine: 'صُنع بحب وشرارة خيال ✦',
     modalLoginTitle: 'أهلًا بعودتكم!', modalRegisterTitle: 'انضمّوا إلى VoltPop', modalVerifyTitle: 'تحقّقوا من بريدكم',
     modalLoginText: 'سجّلوا الدخول لمتابعة حسابكم.', modalRegisterText: 'أنشئوا حسابًا لتكونوا أول من يعرف جديدنا.',
     verifyText: 'أرسلنا رمزًا من 6 أرقام إلى', name: 'الاسم', email: 'البريد الإلكتروني', password: 'كلمة المرور',
@@ -35,13 +54,13 @@ const copy = {
     heroText: 'We’re Adam and his friend, turning our love of inventing into an idea full of energy. Our creations are coming soon!',
     seeProducts: 'Explore products', ourStory: 'Meet the makers', madeBy: 'Dreamed up by Adam & his friend',
     orbitOne: 'Fresh idea', orbitTwo: 'Good energy', orbitThree: 'Coming soon',
-    productsTag: 'Our little shop', productsTitle: 'Cool things are coming!', productsText: 'We’re working on our first creations right now. Save this page and come back soon to see what we’ve made.',
+    productsTag: 'Demo lineup', productsTitle: 'VoltPop’s first ideas!', productsText: 'Three temporary concepts inspired by products on the market, to preview our little shop before our own creations are ready.', demoBadge: 'Demo concept', demoPrice: 'Sample price', currency: 'AED', demoSoon: 'Coming soon', demoReference: 'Idea & specs reference', demoDisclaimer: 'These are temporary illustrations. Displayed prices and specifications are for the demo only; these are not VoltPop products available to buy.',
     emptyLabel: 'A spot for our first creation', emptySub: 'New creations will appear here when ready', contactUs: 'Say hi on WhatsApp',
     ideasTag: 'Design inspiration', ideasTitle: 'Ideas to spark imagination', ideasIntro: 'Real examples of different portable charger designs we gathered to inspire our ideas.', ideaCableTag: 'Built-in cable', ideaPlugTag: 'Foldable connector', ideaMagTag: 'Slim magnetic design', ideaCableText: 'A USB-C cable built into the body for easy carrying.', ideaPlugText: 'A compact foldable USB-C connector that reduces the need for a separate cable.', ideaMagText: 'A flat design that attaches magnetically to compatible devices.', ideaSource: 'See this model at Anker', ideasDisclaimer: 'These Anker models are shown for inspiration only and are not sold by VoltPop. The drawings are illustrative, not original product photos.',
     storyTag: 'Who are we?', storyTitle: <>Every big invention<br />starts with a little question.</>, storyText: 'It all began with Adam’s curiosity and his love of making things with his friend. VoltPop is where we share our journey and ideas, one step at a time.',
     storyCardTitle: 'Made with excitement', storyCardText: 'We learn, experiment, and share what’s new when it’s ready.',
     contactTitle: 'Have a question or an idea?', contactText: 'We’d love to hear from you. Contact a parent through WhatsApp.',
-    officialWhatsApp: 'Official WhatsApp', footerLine: 'Made with love & a spark of imagination ✦',
+    officialWhatsApp: 'Official WhatsApp', instagramFollow: 'Follow our adventure on Instagram', footerLine: 'Made with love & a spark of imagination ✦',
     modalLoginTitle: 'Welcome back!', modalRegisterTitle: 'Join VoltPop', modalVerifyTitle: 'Check your inbox',
     modalLoginText: 'Log in to continue to your account.', modalRegisterText: 'Create an account to be first to hear our news.',
     verifyText: 'We sent a 6-digit code to', name: 'Name', email: 'Email address', password: 'Password',
@@ -74,6 +93,12 @@ function Mascot() {
       <circle cx="327" cy="84" r="10" fill="#f78dad" /><circle cx="91" cy="126" r="7" fill="#ffe56d" />
     </svg>
   );
+}
+
+function DemoProductArt({ kind }) {
+  if (kind === 'snap') return <svg viewBox="0 0 320 220" aria-hidden="true"><ellipse cx="161" cy="188" rx="98" ry="13" fill="#30286d" opacity=".12"/><rect x="55" y="62" width="210" height="111" rx="34" fill="#f5abc5" stroke="#30286d" strokeWidth="7"/><circle cx="159" cy="116" r="35" fill="none" stroke="#fffaf1" strokeWidth="10"/><circle cx="159" cy="116" r="20" fill="none" stroke="#fffaf1" strokeWidth="4"/><rect x="222" y="104" width="9" height="23" rx="4" fill="#30286d"/><path d="m44 62-12-10m251 12 12-11" stroke="#ffb34e" strokeWidth="7" strokeLinecap="round"/><circle cx="87" cy="145" r="5" fill="#fffaf1"/></svg>;
+  if (kind === 'max') return <svg viewBox="0 0 320 220" aria-hidden="true"><ellipse cx="160" cy="190" rx="87" ry="13" fill="#30286d" opacity=".12"/><rect x="77" y="32" width="166" height="145" rx="32" fill="#9e8af5" stroke="#30286d" strokeWidth="7"/><rect x="108" y="56" width="104" height="36" rx="12" fill="#292455"/><text x="160" y="80" textAnchor="middle" fill="#ffe568" fontSize="16" fontFamily="Arial" fontWeight="700">100%</text><circle cx="117" cy="116" r="5" fill="#ffe568"/><circle cx="135" cy="116" r="5" fill="#ffe568"/><circle cx="153" cy="116" r="5" fill="#ffe568"/><rect x="102" y="141" width="36" height="10" rx="5" fill="#fffaf1"/><rect x="144" y="141" width="36" height="10" rx="5" fill="#fffaf1"/><rect x="186" y="141" width="27" height="10" rx="5" fill="#fffaf1"/><path d="m57 62-12-11m230 4 12-12" stroke="#f59ab5" strokeWidth="7" strokeLinecap="round"/><path d="m81 180 9-8m141 6 10 9" stroke="#ffb34e" strokeWidth="6" strokeLinecap="round"/></svg>;
+  return <svg viewBox="0 0 320 220" aria-hidden="true"><ellipse cx="160" cy="190" rx="82" ry="13" fill="#30286d" opacity=".12"/><rect x="85" y="47" width="150" height="131" rx="32" fill="#87d9cb" stroke="#30286d" strokeWidth="7"/><path d="M134 48V35c0-16 12-27 27-27h18c15 0 27 11 27 27v13" fill="none" stroke="#30286d" strokeWidth="10" strokeLinecap="round"/><path d="M206 35v14" stroke="#ffe568" strokeWidth="8" strokeLinecap="round"/><rect x="112" y="77" width="96" height="38" rx="19" fill="#d9f5ed"/><path d="M129 96h6m13 0h6m13 0h6m13 0h6" stroke="#7965e8" strokeWidth="5" strokeLinecap="round"/><circle cx="124" cy="143" r="5" fill="#30286d"/><circle cx="143" cy="143" r="5" fill="#30286d"/><circle cx="162" cy="143" r="5" fill="#30286d"/><path d="m69 57-11-9m205 110 12 10" stroke="#f59ab5" strokeWidth="7" strokeLinecap="round"/><path d="m95 184 8-7m114 5 8 7" stroke="#ffb34e" strokeWidth="6" strokeLinecap="round"/></svg>;
 }
 
 function AuthModal({ language, mode, onClose, onModeChange, onSignedIn }) {
@@ -277,12 +302,20 @@ function App() {
 
         <section className="products-section section-wrap" id="products">
           <div className="section-heading"><div><p className="section-kicker"><span>✦</span>{t.productsTag}</p><h2>{t.productsTitle}</h2></div><p className="section-intro">{t.productsText}</p></div>
-          <div className="empty-shop">
-            <div className="empty-decoration deco-left">✧</div><div className="empty-decoration deco-right">✦</div>
-            <div className="empty-icon"><span className="empty-ring ring-one"></span><span className="empty-ring ring-two"></span><Bolt /></div>
-            <p className="empty-label">{t.emptyLabel}</p><p className="empty-sub">{t.emptySub}</p>
-            <a className="button button-soft" href={WA_URL} target="_blank" rel="noreferrer">{t.contactUs}<span aria-hidden="true">↗</span></a>
+          <div className="product-grid">
+            {DEMO_PRODUCTS.map((product, index) => <article className={`product-card product-${product.kind}`} key={product.kind}>
+              <div className="product-image"><span className="product-demo-badge">✦ {t.demoBadge}</span><span className="product-number">0{index + 1}</span><DemoProductArt kind={product.kind} /></div>
+              <div className="product-details">
+                <p className="product-overline">VOLTPOP <span>✦</span> {language === 'ar' ? 'تصميم أولي' : 'FIRST CONCEPT'}</p>
+                <h3>{product.name[language]}</h3>
+                <p className="product-specs"><span>{product.capacity}</span><span>{product.output[language]}</span></p>
+                <p className="product-description">{product.feature[language]}</p>
+                <a className="product-source" href={product.url} target="_blank" rel="noreferrer">{t.demoReference}: {product.source}<span aria-hidden="true">↗</span></a>
+                <div className="product-price-row"><span><small>{t.demoPrice}</small><strong>{language === 'ar' ? `${product.price} ${t.currency}` : `${t.currency} ${product.price}`}</strong></span><button className="button button-small button-dark" type="button" disabled>{t.demoSoon}</button></div>
+              </div>
+            </article>)}
           </div>
+          <p className="product-disclaimer">{t.demoDisclaimer}</p>
         </section>
 
         <section className="inspiration-section section-wrap" id="inspiration">
@@ -303,7 +336,7 @@ function App() {
         </section>
 
         <section className="contact-section section-wrap">
-          <div className="contact-card"><div><p className="section-kicker"><span>✦</span>{t.officialWhatsApp}</p><h2>{t.contactTitle}</h2><p>{t.contactText}</p></div><a className="whatsapp-link" href={WA_URL} target="_blank" rel="noreferrer"><span className="whatsapp-icon" aria-hidden="true">◉</span><span><small>{t.officialWhatsApp}</small><strong dir="ltr">058 588 1180</strong></span><span className="whatsapp-arrow" aria-hidden="true">↗</span></a></div>
+          <div className="contact-card"><div><p className="section-kicker"><span>✦</span>{t.officialWhatsApp}</p><h2>{t.contactTitle}</h2><p>{t.contactText}</p></div><div className="contact-links"><a className="whatsapp-link" href={WA_URL} target="_blank" rel="noreferrer"><span className="whatsapp-icon" aria-hidden="true">◉</span><span><small>{t.officialWhatsApp}</small><strong dir="ltr">058 588 1180</strong></span><span className="whatsapp-arrow" aria-hidden="true">↗</span></a><a className="instagram-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer"><span className="instagram-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="17.5" cy="6.8" r="1.2" fill="currentColor"/></svg></span><span><small>{t.instagramFollow}</small><strong dir="ltr">@vol.tpop</strong></span><span className="whatsapp-arrow" aria-hidden="true">↗</span></a></div></div>
         </section>
       </main>
 
@@ -316,3 +349,4 @@ function App() {
 }
 
 createRoot(document.getElementById('root')).render(<React.StrictMode><App /></React.StrictMode>);
+
