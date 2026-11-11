@@ -1,6 +1,6 @@
 # VoltPop
 
-A playful bilingual storefront landing page for Adam and his friend's power bank project. Product listings are intentionally empty until the makers add their creations.
+A playful bilingual storefront landing page for Adam and his friend's power bank project. VoltPop product listings and cart are intentionally empty until the makers add their creations. A separate inspiration section shows clearly attributed Anker reference models, not products offered for sale by VoltPop.
 
 ## Run locally
 
