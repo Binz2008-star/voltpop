@@ -223,7 +223,6 @@ function App() {
   const [authMode, setAuthMode] = useState(null);
   const [cartOpen, setCartOpen] = useState(false);
   const [user, setUser] = useState(null);
-  const [sessionLoading, setSessionLoading] = useState(true);
   const t = copy[language];
 
   useEffect(() => {
@@ -234,10 +233,10 @@ function App() {
 
   useEffect(() => {
     let active = true;
-    if (!authClient) { setSessionLoading(false); return undefined; }
+    if (!authClient) return undefined;
     authClient.getSession().then(({ data }) => {
       if (active && data?.session?.user) setUser(data.session.user);
-    }).catch(() => {}).finally(() => { if (active) setSessionLoading(false); });
+    }).catch(() => {});
     return () => { active = false; };
   }, []);
 
@@ -255,7 +254,7 @@ function App() {
         <div className="header-actions">
           <button className="language-toggle" type="button" onClick={() => setLanguage(language === 'ar' ? 'en' : 'ar')} aria-label={language === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'}>{language === 'ar' ? 'EN' : 'عربي'} <span aria-hidden="true">↗</span></button>
           <button className="cart-button" type="button" onClick={() => setCartOpen(true)} aria-label={`${t.cart}, 0`} title={t.cart}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.1 11.1a2 2 0 0 0 2 1.6h8.4a2 2 0 0 0 1.9-1.4L21 8H6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><circle cx="9" cy="20" r="1.5" fill="currentColor"/><circle cx="18" cy="20" r="1.5" fill="currentColor"/></svg><span className="cart-count">0</span></button>
-          {!sessionLoading && (user ? <div className="user-actions"><span className="user-greeting">{user.name || user.email}</span><button className="button button-small button-outline" onClick={signOut}>{t.logout}</button></div> : <><button className="button button-small button-outline login-button" onClick={() => setAuthMode('login')}>{t.signIn}</button><button className="button button-small button-dark" onClick={() => setAuthMode('register')}>{t.signUp}</button></>)}
+          {user ? <div className="user-actions"><span className="user-greeting">{user.name || user.email}</span><button className="button button-small button-outline" onClick={signOut}>{t.logout}</button></div> : <><button className="button button-small button-outline login-button" onClick={() => setAuthMode('login')}>{t.signIn}</button><button className="button button-small button-dark" onClick={() => setAuthMode('register')}>{t.signUp}</button></>}
         </div>
       </header>
 
